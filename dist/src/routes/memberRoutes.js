@@ -1,21 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const memberRouter = (0, express_1.Router)();
-memberRouter.get('/members', (req, res) => {
-    res.send('Get a list of CLAS members');
-});
-memberRouter.get('/members/:id', (req, res) => {
-    res.send(`Get the member with ID ${req.params.id}`);
-});
-memberRouter.post('/', (req, res) => {
-    res.send(`Create a new member with ID: ${req.params.id}`);
-});
-memberRouter.patch('/:id', (req, res) => {
-    res.send(`Update the member with ID ${req.params.id}\n Name: ${req.body.name}`);
-});
-memberRouter.delete('/', (req, res) => {
-    res.send(`Deleting the member with ID ${req.params.id}`);
-});
-exports.default = memberRouter;
+const memberController_1 = require("../controllers/memberController");
+const productRouter = (0, express_1.Router)();
+productRouter.get('/members', memberController_1.getAllMembers);
+productRouter.get('/members/:id', memberController_1.getMemberById);
+productRouter.post('/createmember/', memberController_1.createMember);
+productRouter.patch('/updatemember/:id', memberController_1.modifyMember);
+productRouter.delete('/deletemember/', memberController_1.deleteMember);
+exports.default = productRouter;
 //# sourceMappingURL=memberRoutes.js.map
