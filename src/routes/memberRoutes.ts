@@ -1,26 +1,24 @@
+import { Router } from 'express';
+import {
+createMember,  
+deleteMember,  
+getAllMembers,  
+getMemberById,  
+modifyMember 
+} from '../controllers/memberController'; 
 
-import { Router, Request, Response } from 'express';  
-const memberRouter:Router = Router();  
+const productRouter:Router = Router();  
 
-memberRouter.get('/members', (req:Request, res:Response) => {  
-res.send('Get a list of CLAS members')  
-});  
+productRouter.get('/members', getAllMembers);  
 
-memberRouter.get('/members/:id', (req:Request, res:Response) => {  
-res.send(`Get the member with ID ${req.params.id}`)  
-});  
+productRouter.get('/members/:id', getMemberById);  
 
-memberRouter.post('/', (req:Request, res:Response) => {  
-res.send(`Create a new member with ID: ${req.params.id}`)  
-});  
+productRouter.post('/createmember/', createMember);  
 
-memberRouter.patch('/:id', (req:Request, res:Response) => {  
-res.send(`Update the member with ID ${req.params.id}\n Name: ${req.body.name}`)  
-});  
+productRouter.patch('/updatemember/:id', modifyMember);  
 
-memberRouter.delete('/', (req:Request, res:Response) => {  
-res.send(`Deleting the member with ID ${req.params.id}`)  
-});  
+productRouter.delete('/deletemember/', deleteMember);  
 
-export default memberRouter; 
+export default productRouter; 
+
 
