@@ -1,5 +1,6 @@
 import { Model } from 'sequelize-typescript';
 import { Optional } from 'sequelize';
+import { User } from "../models/user";
 interface MemberAttributes {
     id: number;
     name: string;
@@ -16,6 +17,7 @@ export declare class Member extends Model<MemberAttributes, MemberCreationAttrib
     contact: string;
     address: string;
     type: string;
+    users?: User[];
     createdAt: Date;
     updatedAt: Date;
 }

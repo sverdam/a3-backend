@@ -1,6 +1,9 @@
 
-import {Table, Model, Column, CreatedAt, UpdatedAt, DataType} from 'sequelize-typescript'; 
+import {Table, Model, Column, CreatedAt, UpdatedAt, DataType, HasMany} from 'sequelize-typescript'; 
 import {Optional} from 'sequelize'; 
+import { User } from "../models/user"; 
+
+
 
 interface MemberAttributes{ 
   id: number; 
@@ -39,6 +42,9 @@ export class Member extends Model<MemberAttributes, MemberCreationAttributes>{
 
    @Column 
    type!: string; 
+
+   @HasMany (()=> User)
+   declare users?: User[];
 
    @CreatedAt 
    @Column 

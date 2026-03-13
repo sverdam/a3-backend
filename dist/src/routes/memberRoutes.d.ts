@@ -1,4 +1,4 @@
 import { Router } from 'express';
-declare const productRouter: Router;
-export default productRouter;
+declare const memberRouter: Router;
+export default memberRouter;
 //# sourceMappingURL=memberRoutes.d.ts.map

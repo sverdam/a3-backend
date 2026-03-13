@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteMember = exports.modifyMember = exports.getMemberById = exports.getAllMembers = exports.createMember = void 0;
-const member_1 = require("../models/member");
+exports.deleteUser = exports.modifyUser = exports.getUserById = exports.getAllUsers = exports.createUser = void 0;
 const user_1 = require("../models/user");
-//Create new member 
-const createMember = (req, res) => {
+const member_1 = require("../models/member");
+//Create new user 
+const createUser = (req, res) => {
     //Validate request 
     if (!req.body) {
         return res.status(400).json({
@@ -22,69 +22,69 @@ const createMember = (req, res) => {
             payload: null,
         });
     }
-    // Save Member in the database 
-    const member = Object.assign({}, req.body);
-    member_1.Member.create(member)
+    // Save User in the database 
+    const user = Object.assign({}, req.body);
+    user_1.User.create(user)
         .then((data) => {
         res.status(200).json({
             status: "success",
-            message: "Member successfully created",
+            message: "User successfully created",
             payload: data,
         });
     })
         .catch((err) => {
         res.status(500).json({
             status: "error",
-            message: "Something happened creating a member. " + err.message,
+            message: "Something happened creating a user. " + err.message,
             payload: null,
         });
     });
 };
-exports.createMember = createMember;
-// Get all members using Promises
-const getAllMembers = (req, res) => {
+exports.createUser = createUser;
+// Get all users using Promises
+const getAllUsers = (req, res) => {
     //Calling the Sequelize findAll method. This is the same that a SELECT * FROM PRODUCT in a SQL query. 
-    member_1.Member.findAll({
-        //       attributes: {exclude: ["member_id"]},
-        include: [{ model: user_1.User, attributes: ["id", "name"] }]
+    user_1.User.findAll({
+        attributes: { exclude: ["member_id"] },
+        include: [{ model: member_1.Member, attributes: ["id", "name"] }]
     })
         .then((data) => {
         return res.status(200).json({
             status: "success",
-            message: "Members successfully retrieved",
+            message: "Users successfully retrieved",
             payload: data,
         });
     })
         .catch((err) => {
         return res.status(500).json({
             status: "error",
-            message: "Something happened retrieving all members. " + err.message,
+            message: "Something happened retrieving all users. " + err.message,
             payload: null,
         });
     });
 };
-exports.getAllMembers = getAllMembers;
-/// Get members by Id 
-const getMemberById = (req, res) => {
-    member_1.Member.findByPk(Number(req.params.id))
+exports.getAllUsers = getAllUsers;
+/// Get users by Id 
+const getUserById = (req, res) => {
+    user_1.User.findByPk(Number(req.params.id))
         .then((data) => {
         return res.status(200).json({
             status: "success",
-            message: "Members successfully retrieved",
+            message: "Users successfully retrieved",
             payload: data,
         });
     })
         .catch((err) => {
         return res.status(500).json({
             status: "error",
-            message: "Something happened retrieving all members. " + err.message,
+            message: "Something happened retrieving all users. " + err.message,
             payload: null,
         });
     });
 };
-exports.getMemberById = getMemberById;
-///Modify member 
-const modifyMember = (req, res) => {
+exports.getUserById = getUserById;
+///Modify user 
+const modifyUser = (req, res) => {
     // Validate request 
     if (!req.body) {
         return res.status(400).json({
@@ -93,20 +93,20 @@ const modifyMember = (req, res) => {
             payload: null,
         });
     }
-    // Save Member in the database 
-    member_1.Member.update(Object.assign({}, req.body), { where: { id: req.params.id } })
+    // Save User in the database 
+    user_1.User.update(Object.assign({}, req.body), { where: { id: req.params.id } })
         .then((isUpdated) => {
         if (isUpdated) {
             return res.status(200).json({
                 status: "success",
-                message: "Member successfully updated",
+                message: "User successfully updated",
                 payload: Object.assign({}, req.body),
             });
         }
         else {
             return res.status(500).json({
                 status: "error",
-                message: "Something happened updating the member. ",
+                message: "Something happened updating the user. ",
                 payload: null,
             });
         }
@@ -114,25 +114,25 @@ const modifyMember = (req, res) => {
         .catch((err) => {
         res.status(500).json({
             status: "error",
-            message: "Something happened updating a member. " + err.message,
+            message: "Something happened updating a user. " + err.message,
             payload: null,
         });
     });
 };
-exports.modifyMember = modifyMember;
-///Delete member
-const deleteMember = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.modifyUser = modifyUser;
+///Delete user
+const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.body;
     try {
-        yield member_1.Member.destroy({ where: { id } });
-        res.status(200).json({ message: "Member deleted" });
+        yield user_1.User.destroy({ where: { id } });
+        res.status(200).json({ message: "User deleted" });
     }
     catch (error) {
         res.status(500).json({
-            message: "Error deleting members",
+            message: "Error deleting users",
             error,
         });
     }
 });
-exports.deleteMember = deleteMember;
-//# sourceMappingURL=memberController.js.map
+exports.deleteUser = deleteUser;
+//# sourceMappingURL=userController.js.map
