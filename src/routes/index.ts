@@ -3,7 +3,7 @@ import memberRoutes from './memberRoutes';
 
 const apiRouter:Router = Router();  
 
-apiRouter.use('/', memberRoutes);  
+apiRouter.use('/members', memberRoutes);  
 
 apiRouter.get('/', (req:Request, res: Response) => {  
 res.send('Hello World!')  

@@ -9,15 +9,15 @@ modifyMember
 
 const productRouter:Router = Router();  
 
-productRouter.get('/members', getAllMembers);  
+productRouter.get('/', getAllMembers);  
 
-productRouter.get('/members/:id', getMemberById);  
+productRouter.get('/:id', getMemberById);  
 
-productRouter.post('/createmember/', createMember);  
+productRouter.post('/create', createMember);  
 
-productRouter.patch('/updatemember/:id', modifyMember);  
+productRouter.patch('/update/:id', modifyMember);  
 
-productRouter.delete('/deletemember/', deleteMember);  
+productRouter.delete('/delete', deleteMember);  
 
 export default productRouter; 
 

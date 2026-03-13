@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const memberRoutes_1 = __importDefault(require("./memberRoutes"));
 const apiRouter = (0, express_1.Router)();
-apiRouter.use('/', memberRoutes_1.default);
+apiRouter.use('/members', memberRoutes_1.default);
 apiRouter.get('/', (req, res) => {
     res.send('Hello World!');
 });
