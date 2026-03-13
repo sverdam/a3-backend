@@ -7,18 +7,18 @@ getMemberById,
 modifyMember 
 } from '../controllers/memberController'; 
 
-const productRouter:Router = Router();  
+const memberRouter:Router = Router();  
 
-productRouter.get('/', getAllMembers);  
+memberRouter.get('/', getAllMembers);  
 
-productRouter.get('/:id', getMemberById);  
+memberRouter.get('/:id', getMemberById);  
 
-productRouter.post('/create', createMember);  
+memberRouter.post('/create', createMember);  
 
-productRouter.patch('/update/:id', modifyMember);  
+memberRouter.patch('/update/:id', modifyMember);  
 
-productRouter.delete('/delete', deleteMember);  
+memberRouter.delete('/delete', deleteMember);  
 
-export default productRouter; 
+export default memberRouter; 
 
 

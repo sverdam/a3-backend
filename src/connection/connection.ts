@@ -1,6 +1,7 @@
 
 import { Sequelize } from "sequelize-typescript"; 
 import { Member } from "../models/member"; 
+import { User } from "../models/user"; 
 
 const connection = new Sequelize({ 
 database: 'a3_db', 
@@ -9,7 +10,7 @@ username: 'a3_user',
 password: 'HDK#$%Ljkwerff.89', 
 storage: ':memory:', 
 models: [ 
-Member 
+Member, User
 ] 
 }); 
 

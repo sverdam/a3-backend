@@ -1,9 +1,9 @@
 import { RequestHandler, Request, Response } from "express";
-import { Member } from "../models/member"; 
 import { User } from "../models/user"; 
+import { Member } from "../models/member"; 
 
-//Create new member 
-export const createMember: RequestHandler = (req: Request, res: Response) => { 
+//Create new user 
+export const createUser: RequestHandler = (req: Request, res: Response) => { 
   //Validate request 
   if (!req.body) { 
     return res.status(400).json({ 
@@ -13,70 +13,71 @@ export const createMember: RequestHandler = (req: Request, res: Response) => {
     }); 
   } 
    
-// Save Member in the database 
-  const member = { ...req.body }; 
-  Member.create(member) 
-    .then((data: Member | null) => { 
+// Save User in the database 
+  const user = { ...req.body }; 
+  User.create(user) 
+    .then((data: User | null) => { 
       res.status(200).json({ 
         status: "success", 
-        message: "Member successfully created", 
+        message: "User successfully created", 
         payload: data, 
       }); 
     }) 
     .catch((err) => { 
        res.status(500).json({ 
          status: "error", 
-         message: "Something happened creating a member. " + err.message, 
+         message: "Something happened creating a user. " + err.message, 
          payload: null, 
        }); 
     }); 
 }; 
 
-// Get all members using Promises
-export const getAllMembers: RequestHandler = (req: Request, res: Response) => { 
+// Get all users using Promises
+export const getAllUsers: RequestHandler = (req: Request, res: Response) => { 
   //Calling the Sequelize findAll method. This is the same that a SELECT * FROM PRODUCT in a SQL query. 
    
-   Member.findAll({
-//       attributes: {exclude: ["member_id"]},
-       include: [{model: User, attributes: ["id", "name"]}]
+   User.findAll({
+       attributes: {exclude: ["member_id"]},
+       include: [{model: Member, attributes: ["id", "name"]}]
       }) 
-   .then((data: Member[]) => { 
+      
+   .then((data: User[]) => { 
       return res.status(200).json({ 
          status: "success", 
-           message: "Members successfully retrieved", 
+           message: "Users successfully retrieved", 
            payload: data, 
       }); 
     }) 
     .catch((err) => { 
        return res.status(500).json({ 
        status: "error", 
-       message: "Something happened retrieving all members. " + err.message, 
+       message: "Something happened retrieving all users. " + err.message, 
        payload: null, 
     }); 
   }); 
 }; 
 
-/// Get members by Id 
-export const getMemberById: RequestHandler = (req: Request, res: Response) => { 
-  Member.findByPk(Number(req.params.id)) 
-  .then((data: Member | null) => { 
+/// Get users by Id 
+export const getUserById: RequestHandler = (req: Request, res: Response) => { 
+  User.findByPk(Number(req.params.id)) 
+  .then((data: User | null) => { 
     return res.status(200).json({ 
       status: "success", 
-      message: "Members successfully retrieved", 
+      message: "Users successfully retrieved", 
       payload: data, 
     }); 
   }) 
   .catch((err) => { 
     return res.status(500).json({ 
       status: "error", 
-      message: "Something happened retrieving all members. " + err.message, 
+      message: "Something happened retrieving all users. " + err.message, 
       payload: null, 
     }); 
   }); 
 }; 
 
-///Modify member 
-export const modifyMember:RequestHandler = (req: Request, res: Response) => { 
+///Modify user 
+export const modifyUser:RequestHandler = (req: Request, res: Response) => { 
   // Validate request 
   if (!req.body) { 
     return res.status(400).json({ 
@@ -86,19 +87,19 @@ export const modifyMember:RequestHandler = (req: Request, res: Response) => {
     }); 
   } 
 
-// Save Member in the database 
-  Member.update({ ...req.body }, { where: { id: req.params.id } }) 
+// Save User in the database 
+  User.update({ ...req.body }, { where: { id: req.params.id } }) 
   .then((isUpdated) => { 
     if (isUpdated) { 
       return res.status(200).json({ 
         status: "success", 
-        message: "Member successfully updated", 
+        message: "User successfully updated", 
         payload: { ...req.body }, 
       }); 
     } else { 
       return res.status(500).json({ 
         status: "error", 
-        message: "Something happened updating the member. ", 
+        message: "Something happened updating the user. ", 
         payload: null, 
     }); 
    } 
@@ -106,21 +107,21 @@ export const modifyMember:RequestHandler = (req: Request, res: Response) => {
   .catch((err) => { 
     res.status(500).json({ 
       status: "error", 
-      message: "Something happened updating a member. " + err.message, 
+      message: "Something happened updating a user. " + err.message, 
       payload: null, 
   }); 
 }); 
 }; 
 
-///Delete member
-export const deleteMember: RequestHandler = async (req: Request, res: Response): Promise<void> => { 
+///Delete user
+export const deleteUser: RequestHandler = async (req: Request, res: Response): Promise<void> => { 
     const { id } = req.body; 
     try { 
-      await Member.destroy({ where: { id } }); 
-      res.status(200).json({ message: "Member deleted" }); 
+      await User.destroy({ where: { id } }); 
+      res.status(200).json({ message: "User deleted" }); 
     } catch (error) { 
       res.status(500).json({ 
-        message: "Error deleting members", 
+        message: "Error deleting users", 
         error, 
       }); 
     } 
